@@ -5,10 +5,12 @@ namespace App\Http;
 class Response
 {
     protected $view; //array, json, pdf...
+    protected $data;
 
-    public function __construct($view)
+    public function __construct($view,$data)
     {
         $this->view = $view; //home, contact
+        $this->data =$data;
     }
 
     public function getView()
@@ -19,11 +21,12 @@ class Response
     public function send()
     {
         $view = $this->getView();
+        $data = $this->data;
 
-         $content = file_get_contents(__DIR__ . "/../../views/$view.php");
-          $TITLE_OF_PAGE=ucfirst($view);
+         $content = file_get_contents(viewPath($view));
+         $TITLE_OF_PAGE=ucfirst($view);
     
-        require_once __DIR__ . "/../../views/layout.php";
+        require_once viewPath('layout');
         
     }
 }

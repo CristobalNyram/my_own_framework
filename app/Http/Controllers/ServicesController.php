@@ -2,10 +2,10 @@
 namespace App\Http\Controllers;
 // use App\Http\Response;
 
-class ErrorController
+class ServicesController
 {
     public function index()
     {
-        return view('404');
+        return view('services');
     }
 }

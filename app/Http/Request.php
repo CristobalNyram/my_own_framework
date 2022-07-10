@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\HomeController;
 
 class Request
@@ -41,7 +42,7 @@ class Request
     {
         //home, Home
         $controller = ucfirst($this->controller);
-
+        
         return "App\Http\Controllers\\{$controller}Controller";
     }
 
@@ -55,37 +56,48 @@ class Request
     }
 
     public function send()
-    {
+    { 
         $controller = $this->getController();
         $method = $this->getMethod();
-        
-        $object = new $controller;
+
+        // si el archivo existe ;
         if(class_exists($controller))
         {
-                    if(method_exists($object,$method))
-                    {
-                        $response = call_user_func([                                                                                                                           
-                            $object,                                                                                                                               
-                            $method                                                                                                                                
-                        ]);  
-                    }
-                    else
-                    {
-                        // si no existe el metodo llamo al index del controlador                                                                                                                                           
-                        $response = call_user_func([$object,'index']);                                                                                             
 
-                    }                                                                                                                                          
+                $object = new $controller;
+
+                if(method_exists($object,$method))
+                {
+                    $response = call_user_func([                                                                                                                           
+                        $object,                                                                                                                               
+                        $method                                                                                                                                
+                    ]);  
+                }
+                else
+                {
+                    // si no existe el metodo llamo al index del controlador                                                                                                                                           
+                    $response = call_user_func([$object,'index']);                                                                                             
+
+                }    
 
         }
-   
+        else
+        {
+            $response= call_user_func([                                                                                                                           
+                 new ErrorController,                                                                                                                               
+                'index'                                                                                                                                
+            ]);  
+        }
+    
+
+
+                                                                                                                                                      
+
         
- 
-
-  
-
      
-        
 
-        $response->send();
+        
+         $response->send();
+
     }
 }

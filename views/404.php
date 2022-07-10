@@ -2,10 +2,9 @@
 <h1 class="text-danger font-size-bold" >
     ERROR 404
 
-    <?php
-    header('Refresh:1');
-
-    ?>
+  
 
 </h1>
+
+
 </div>

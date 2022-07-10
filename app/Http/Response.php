@@ -17,11 +17,16 @@ class Response
     {
         return $this->view;
     }
+    public function getData()
+    {
+        return $this->data;
+
+    }
 
     public function send()
     {
         $view = $this->getView();
-        $data = $this->data;
+        $data = $this->getData();
 
          $content = file_get_contents(viewPath($view));
          $TITLE_OF_PAGE=ucfirst($view);

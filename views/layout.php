@@ -16,6 +16,9 @@
         <div class="row">
             <?php echo $content ?>
         </div>
+        <div>
+            <?php print_r($data)?>
+        </div>
 
     </div>
     

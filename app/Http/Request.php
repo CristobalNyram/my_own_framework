@@ -88,14 +88,6 @@ class Request
                 'index'                                                                                                                                
             ]);  
         }
-    
-
-
-                                                                                                                                                      
-
-        
-     
-
         
          $response->send();
 

@@ -2,60 +2,58 @@
 
 namespace App\Http;
 
-
-class Request 
+class Request
 {
-    protected $segments =[];
+    protected $segments = [];
     protected $controller;
-    protected $mothod;
-
+    protected $method;
 
     public function __construct()
     {
-        $this->segments=explode('/',$_SERVER['REQUEST_URI']);
+        // platzi.test/servicios/index
+        $this->segments = explode('/', $_SERVER['REQUEST_URI']);
 
-
-        // var_dump($this->setController());
-
-        
         $this->setController();
         $this->setMethod();
-    
     }
 
     public function setController()
     {
-      return  $this->controller=empty($this->segments[4])?'home':$this->segments[4];
+        $this->controller = empty($this->segments[4])
+            ? 'home'
+            : $this->segments[4];
     }
 
-    
     public function setMethod()
     {
-     return   $this->method=empty($this->segments[5])?'index':$this->segments[5];
-
+        $this->method = empty($this->segments[5])
+            ? 'index'
+            : $this->segments[5];
     }
-    
+
     public function getController()
     {
-        $controller =ucfirst($this->controller);//ponlo en letras mayusculas
-        
-        return "App\Http\Controllers\\{$controller}Controller";///HomerController
+        //home, Home
+        $controller = ucfirst($this->controller);
+
+        return "App\Http\Controllers\\{$controller}Controller";
     }
+
     public function getMethod()
     {
         return $this->method;
     }
+
     public function send()
     {
-        $controller=$this->getController();
-        $method=$this->getMethod();
+        $controller = $this->getController();
+        $method = $this->getMethod();
 
-        $response=call_user_func(
+        $response = call_user_func([
             new $controller,
             $method
-        );
+        ]);
 
         $response->send();
     }
-
 }

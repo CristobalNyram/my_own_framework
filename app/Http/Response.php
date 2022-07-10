@@ -1,15 +1,14 @@
 <?php
 
-
 namespace App\Http;
 
 class Response
 {
-    protected $view;
+    protected $view; //array, json, pdf...
 
     public function __construct($view)
     {
-        $this->view=$view;
+        $this->view = $view; //home, contact
     }
 
     public function getView()
@@ -19,10 +18,10 @@ class Response
 
     public function send()
     {
-        $view =$this->getView();
-        $content= file_get_contents(__DIR__ . "/../../views/$view.php");
+        $view = $this->getView();
 
-        require __DIR__ . '/../../views/layout.php';
+        $content = file_get_contents(__DIR__ . "/../../views/$view.php");
 
+        require __DIR__ . "/../../views/layout.php";
     }
 }

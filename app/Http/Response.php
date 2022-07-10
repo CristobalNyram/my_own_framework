@@ -21,10 +21,9 @@ class Response
         $view = $this->getView();
 
          $content = file_get_contents(__DIR__ . "/../../views/$view.php");
-        //  $TITLE_OF_PAGE= $view;
+          $TITLE_OF_PAGE=ucfirst($view);
     
         require_once __DIR__ . "/../../views/layout.php";
-        // require_once __DIR__ . "/../../views/layout.php";
         
     }
 }

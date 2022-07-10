@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Controllers\HomeController;
+
 class Request
 {
     protected $segments = [];
@@ -15,8 +17,10 @@ class Request
 
         $this->setController();
         $this->setMethod();
-
-        // var_dump($this->segments);
+        
+        // var_dump($this->getController());
+   
+       
     }
 
     public function setController()
@@ -45,16 +49,42 @@ class Request
     {
         return $this->method;
     }
+    public function checkControllerAndMethod()
+    {
+        
+    }
 
     public function send()
     {
         $controller = $this->getController();
         $method = $this->getMethod();
+        
+        $object = new $controller;
+        if(class_exists($controller))
+        {
+                    if(method_exists($object,$method))
+                    {
+                        $response = call_user_func([                                                                                                                           
+                            $object,                                                                                                                               
+                            $method                                                                                                                                
+                        ]);  
+                    }
+                    else
+                    {
+                        // si no existe el metodo llamo al index del controlador                                                                                                                                           
+                        $response = call_user_func([$object,'index']);                                                                                             
 
-        $response = call_user_func([
-            new $controller,
-            $method
-        ]);
+                    }                                                                                                                                          
+
+        }
+   
+        
+ 
+
+  
+
+     
+        
 
         $response->send();
     }

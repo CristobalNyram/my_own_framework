@@ -15,20 +15,22 @@ class Request
 
         $this->setController();
         $this->setMethod();
+
+        // var_dump($this->segments);
     }
 
     public function setController()
     {
-        $this->controller = empty($this->segments[4])
+        $this->controller = empty($this->segments[2])
             ? 'home'
-            : $this->segments[4];
+            : $this->segments[2];
     }
 
     public function setMethod()
     {
-        $this->method = empty($this->segments[5])
+        $this->method = empty($this->segments[3])
             ? 'index'
-            : $this->segments[5];
+            : $this->segments[3];
     }
 
     public function getController()
